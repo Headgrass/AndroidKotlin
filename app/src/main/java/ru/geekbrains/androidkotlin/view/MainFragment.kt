@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import ru.geekbrains.androidkotlin.R
 import ru.geekbrains.androidkotlin.viewmodel.MainViewModel
 import ru.geekbrains.androidkotlin.model.Weather
@@ -43,12 +41,15 @@ class MainFragment : Fragment() {
         binding.mainRV.adapter = adapter
 
         adapter.listener = MainAdapter.OnItemClick { weather ->
-            val bundle = Bundle()
-            bundle.putParcelable("WEATHER_EXTRA", weather)
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_container, DetailFragment.newInstance(bundle))
-                .addToBackStack("")
-                .commit()
+            val bundle = Bundle().apply {
+                putParcelable("WEATHER_EXTRA", weather)
+            }
+            activity?.supportFragmentManager?.apply {
+                beginTransaction()
+                    .replace(R.id.main_container, DetailFragment.newInstance(bundle))
+                    .addToBackStack("")
+                    .commit()
+            }
         }
 
         // Подписались на изменения live Data
@@ -78,21 +79,19 @@ class MainFragment : Fragment() {
             is AppState.Success<*> -> {
                 val weather: List<Weather> = state.data as List<Weather>
                 adapter.setWeather(weather)
-                binding.loadingContainer.visibility = View.GONE
+                binding.loadingContainer.hide()
             }
             is AppState.Error -> {
-                binding.loadingContainer.visibility = View.VISIBLE
-                Snackbar.make(
-                    binding.root,
-                    state.error.message.toString(),
-                    Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Попробовать снова") {
-                        // Запросили новые данные
-                        viewModel.getWeatherFromLocalSourceRus()
-                    }.show()
+                binding.loadingContainer.show()
+                binding.root.showSnackBar(state.error.message.toString(),
+                    "Попробовать снова",
+                {
+                    // Запросили новые данные
+                    viewModel.getWeatherFromLocalSourceRus()
+                })
             }
             is AppState.Loading -> {
-                binding.loadingContainer.visibility = View.VISIBLE
+                binding.loadingContainer.show()
             }
         }
 

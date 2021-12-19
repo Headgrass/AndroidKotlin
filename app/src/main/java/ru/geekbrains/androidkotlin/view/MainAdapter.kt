@@ -33,13 +33,16 @@ class MainAdapter : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(weather: Weather) {
-            itemView.findViewById<TextView>(R.id.main_city_item_view).text = weather.city.name
-            itemView.setOnClickListener {
-                listener?.onClick(weather)
+            itemView.apply {
+                itemView.findViewById<TextView>(R.id.main_city_item_view).text = weather.city.name
+                itemView.setOnClickListener {
+                    listener?.onClick(weather)
+                }
             }
         }
     }
-    fun interface  OnItemClick {
+
+    fun interface OnItemClick {
         fun onClick(weather: Weather)
     }
 }

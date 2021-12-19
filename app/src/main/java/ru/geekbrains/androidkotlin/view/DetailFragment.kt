@@ -18,6 +18,7 @@ class DetailFragment : Fragment() {
             return fragment
         }
     }
+
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -33,11 +34,12 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val weather = arguments?.getParcelable<Weather>("WEATHER_EXTRA")
-        binding.cityname.text = weather?.city?.name ?: ""
-        binding.temperature.text = weather?.temp.toString()
-        binding.conditionfrg.text = weather?.condition ?: ""
 
+        arguments?.getParcelable<Weather>("WEATHER_EXTRA")?.let { weather ->
+            binding.cityname.text = weather.city.name
+            binding.temperature.text = weather.temp.toString()
+            binding.conditionfrg.text = weather.condition
+        }
     }
 
     override fun onDestroy() {
