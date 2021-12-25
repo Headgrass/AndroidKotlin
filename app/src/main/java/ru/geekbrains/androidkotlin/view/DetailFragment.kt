@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import ru.geekbrains.androidkotlin.databinding.DetailFragmentBinding
 import ru.geekbrains.androidkotlin.model.Weather
+import ru.geekbrains.androidkotlin.model.WeatherDTO
+import ru.geekbrains.androidkotlin.model.WeatherLoader
 import ru.geekbrains.androidkotlin.viewmodel.DetailViewModel
 
 class DetailFragment : Fragment() {
@@ -36,9 +39,30 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.getParcelable<Weather>("WEATHER_EXTRA")?.let { weather ->
+
             binding.cityname.text = weather.city.name
             binding.temperature.text = weather.temp.toString()
             binding.conditionfrg.text = weather.condition
+
+
+            WeatherLoader.load(weather.city, object : WeatherLoader.OnWeatherLoadListener {
+                override fun onLoaded(weatherDTO: WeatherDTO) {
+                    weatherDTO.fact?.let { fact ->
+                        binding.temperature.text = fact.temp?.toString()
+                        binding.conditionfrg.text = fact.condition
+                    }
+
+                }
+
+                override fun onFailed(throwable: Throwable) {
+                    Toast.makeText(requireContext(), throwable.message, Toast.LENGTH_LONG).show()
+                }
+
+            })
+
+            //binding.cityname.text = weather.city.name
+         //   binding.temperature.text = weather.temp.toString()
+       //     binding.conditionfrg.text = weather.condition
         }
     }
 
