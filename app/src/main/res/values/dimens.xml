@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_text_h1">35sp</dimen>
+    <dimen name="margin_top">20sp</dimen>
+    <dimen name="size_text_h2">25sp</dimen>
+</resources>
