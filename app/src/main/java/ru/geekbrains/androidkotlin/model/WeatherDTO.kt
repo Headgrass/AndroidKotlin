@@ -8,14 +8,14 @@ data class WeatherDTO (
 )
 
 data class FactDTO (
-    @SerializedName("temp")
+    @SerializedName("_temp")
     val temp: Int?,
-    @SerializedName("condition")
+    @SerializedName("_condition")
     val condition: String?,
-    @SerializedName("humidity")
+    @SerializedName("_humidity")
     val humidity: Int?,
-    @SerializedName("wind_speed")
+    @SerializedName("_wind_speed")
     val wind_speed: Int?,
-    @SerializedName("dir")
+    @SerializedName("_dir")
     val dir: Int?,
 )

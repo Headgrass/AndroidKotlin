@@ -10,7 +10,7 @@ import java.lang.Thread.sleep
 
 class MainViewModel(
     private val liveDataObserve: MutableLiveData<AppState> = MutableLiveData(),
-    private val repo: Repository = RepositoryImpl()
+    private val repo: Repository = RepositoryImpl
 ) : ViewModel() {
 
     fun getData(): LiveData<AppState> = liveDataObserve
