@@ -18,4 +18,6 @@ data class FactDTO (
     val wind_speed: Int?,
     @SerializedName("_dir")
     val dir: Int?,
+    @SerializedName("_icon")
+    val icon: String?,
 )

@@ -7,6 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.load
+import coil.request.ImageRequest
+import coil.transform.CircleCropTransformation
+import ru.geekbrains.androidkotlin.R
 import ru.geekbrains.androidkotlin.databinding.DetailFragmentBinding
 import ru.geekbrains.androidkotlin.model.*
 import ru.geekbrains.androidkotlin.viewmodel.DetailViewModel
@@ -25,6 +31,26 @@ class DetailFragment : Fragment() {
         RepositoryImpl.getWeatherFromServer()?.let { weather ->
             binding.temperature.text = weather.temp.toString()
             binding.conditionfrg.text = weather.condition
+/*
+            binding.weatherImage.load("https://picsum.photos/300/300") {
+                crossfade(true)
+                placeholder(R.drawable.ic_baseline_flag_24)
+                transformations(CircleCropTransformation())
+            }*/
+
+
+
+            val request = ImageRequest.Builder(requireContext())
+                .data("https://yastatic.ru/weather/i/icons/funky/dark/${weather.icon}.svg")
+                .target(binding.weatherImage)
+                .build()
+
+            ImageLoader.Builder(requireContext())
+                .componentRegistry {
+                    add(SvgDecoder(requireContext())) }
+                .build()
+                .enqueue(request)
+
         } ?: Toast.makeText(context, "ОШИБКА", Toast.LENGTH_LONG).show()
     }
     private var _binding: DetailFragmentBinding? = null

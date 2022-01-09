@@ -8,6 +8,7 @@ data class Weather(
     val city: City = getDefaultCity(),
     val temp: Int = 0,
     val condition: String = "Ясно",
+    val icon: String = ""
 
     ) : Parcelable
 

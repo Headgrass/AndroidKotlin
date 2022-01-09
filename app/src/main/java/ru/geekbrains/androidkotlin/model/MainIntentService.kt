@@ -2,7 +2,6 @@ package ru.geekbrains.androidkotlin.model
 
 import android.app.IntentService
 import android.content.Intent
-import android.content.Context
 import android.util.Log
 
 
@@ -19,13 +18,15 @@ class MainIntentService : IntentService("MainIntentService") {
         Thread.sleep(5000)
 
         intent?.getParcelableExtra<Weather>("WEATHER_EXTRA")?.let { weather ->
-            WeatherLoader.load(weather.city, object : WeatherLoader.OnWeatherLoadListener {
+            WeatherLoader.loadRetrofit(weather.city, object : WeatherLoader.OnWeatherLoadListener {
                 override fun onLoaded(weatherDTO: WeatherDTO) {
                     applicationContext.sendBroadcast(Intent(applicationContext, MainReceiver::class.java).apply {
                         action = MainReceiver.WEATHER_LOAD_SUCCESS
                         putExtra("WEATHER_EXTRA", Weather(
                             temp = weatherDTO.fact?.temp ?: 0,
-                            condition = weatherDTO.fact?.condition ?: "Солнечно"
+                            condition = weatherDTO.fact?.condition ?: "Солнечно",
+                            icon = weatherDTO.fact?.icon ?: ""
+
                         ))
                     })
                 }
