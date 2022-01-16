@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.load
@@ -27,17 +28,22 @@ class DetailFragment : Fragment() {
         }
     }
 
+    private val viewModel: DetailViewModel by lazy {
+        ViewModelProvider(this).get(DetailViewModel::class.java)
+    }
+
     private val listener = Repository.OnLoadListener {
+
         RepositoryImpl.getWeatherFromServer()?.let { weather ->
             binding.temperature.text = weather.temp.toString()
             binding.conditionfrg.text = weather.condition
-/*
+
             binding.weatherImage.load("https://picsum.photos/300/300") {
                 crossfade(true)
                 placeholder(R.drawable.ic_baseline_flag_24)
                 transformations(CircleCropTransformation())
-            }*/
-
+            }
+            viewModel.saveHistory(weather)
 
 
             val request = ImageRequest.Builder(requireContext())
@@ -47,7 +53,8 @@ class DetailFragment : Fragment() {
 
             ImageLoader.Builder(requireContext())
                 .componentRegistry {
-                    add(SvgDecoder(requireContext())) }
+                    add(SvgDecoder(requireContext()))
+                }
                 .build()
                 .enqueue(request)
 
@@ -55,8 +62,6 @@ class DetailFragment : Fragment() {
     }
     private var _binding: DetailFragmentBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var viewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

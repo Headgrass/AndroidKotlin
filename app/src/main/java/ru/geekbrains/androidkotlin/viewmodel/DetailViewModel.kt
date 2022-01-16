@@ -4,16 +4,21 @@ package ru.geekbrains.androidkotlin.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import ru.geekbrains.androidkotlin.model.Repository
-import ru.geekbrains.androidkotlin.model.RepositoryImpl
+import androidx.lifecycle.ViewModelProvider
+import ru.geekbrains.androidkotlin.model.*
+import ru.geekbrains.androidkotlin.view.App
 import java.lang.Thread.sleep
 
-class DetailViewModel(
-    private val liveDataObserve: MutableLiveData<AppState> = MutableLiveData(),
+class DetailViewModel : ViewModel() {
+    private val liveDataObserve: MutableLiveData<AppState> = MutableLiveData()
     private val repo: Repository = RepositoryImpl
-) : ViewModel() {
+    private val localRepo: LocalRepository = LocalRepositoryImpl(App.getHistoryDAO())
 
     fun getData(): LiveData<AppState> = liveDataObserve
+
+    fun saveHistory(weather: Weather) {
+        localRepo.saveEntity(weather)
+    }
 
     fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(isRussian = true)
     fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(isRussian = false)

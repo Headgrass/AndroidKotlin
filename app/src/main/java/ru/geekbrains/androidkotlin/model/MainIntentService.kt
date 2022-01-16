@@ -25,8 +25,8 @@ class MainIntentService : IntentService("MainIntentService") {
                         putExtra("WEATHER_EXTRA", Weather(
                             temp = weatherDTO.fact?.temp ?: 0,
                             condition = weatherDTO.fact?.condition ?: "Солнечно",
-                            icon = weatherDTO.fact?.icon ?: ""
-
+                            icon = weatherDTO.fact?.icon ?: "",
+                            city = weather.city
                         ))
                     })
                 }

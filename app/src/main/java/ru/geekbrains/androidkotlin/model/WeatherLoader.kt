@@ -47,7 +47,7 @@ object WeatherLoader {
         .build()
         .create(WeatherAPI::class.java)
 
-    private const val MY_API_KEY = ""
+    private const val MY_API_KEY = "6cec9727-0504-4083-b5e6-926f3ade13c6"
 
     fun load(city: City, listener: OnWeatherLoadListener) {
 
