@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/layout/activity_contacts.xml" value="0.1" />
         <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/layout/activity_history.xml" value="0.1" />
         <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/layout/activity_main.xml" value="0.20153985507246377" />
         <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/layout/detail_fragment.xml" value="0.12047101449275362" />
@@ -10,6 +11,7 @@
         <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/layout/history_item_layout.xml" value="0.4" />
         <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/layout/main_fragment.xml" value="0.20710059171597633" />
         <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/layout/main_item.xml" value="0.4" />
+        <entry key="..\:/Users/headg/StudioProjects/AndroidKotlin/app/src/main/res/menu/main.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

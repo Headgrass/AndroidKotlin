@@ -1,5 +1,6 @@
 package ru.geekbrains.androidkotlin.model
 
+import android.database.Cursor
 import androidx.room.*
 
 @Dao
@@ -20,5 +21,11 @@ interface HistoryDAO {
 
     @Delete
     fun delete(entity: HistoryEntity)
+
+    @Query("SELECT id, city, temperature FROM HistoryEntity ORDER BY timestamp DESC")
+    fun getHistoryCursor(): Cursor
+
+    @Query("SELECT id, city, temperature FROM HistoryEntity WHERE id = :id")
+    fun getHistoryCursor(id: Long): Cursor
 
 }
